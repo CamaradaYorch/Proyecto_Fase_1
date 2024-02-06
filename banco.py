@@ -1,6 +1,7 @@
 # Definición de la clase Cliente
 class Cliente:
     def __init__(self, nombre, categorias):
+        # Inicializa un objeto Cliente con nombre y categorías
         self.nombre = nombre
         self.categorias = categorias
         self.siguiente = None
@@ -8,6 +9,7 @@ class Cliente:
 # Definición de la clase NodoArbol
 class NodoArbol:
     def __init__(self, cliente):
+        # Inicializa un nodo del árbol con un cliente y lista de hijos
         self.cliente = cliente
         self.hijos = []
 
@@ -63,16 +65,18 @@ class PreguntaCategorias:
     @staticmethod
     def imprimir_menu():
         print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
-        print("---- Sistema Bancario ----")
-        print("1. Agregar cliente a la fila")
-        print("2. Eliminar cliente atendido")
-        print("3. Encontrar posición de un cliente")
-        print("4. Imprimir lista de clientes en orden de llegada y prioridad")
-        print("5. Salir")
+        print("---- Sistema Bancario ----\n")
+        print(" 1. Agregar cliente a la fila")
+        print(" 2. Eliminar cliente atendido")
+        print(" 3. Encontrar posición de un cliente")
+        print(" 4. Imprimir lista de clientes")
+        print(" 5. Salir\n")
         print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
+        print(" = " * 20)
 
     @staticmethod
     def obtener_categorias():
+        # Obtiene las categorías del cliente mediante interacción con el usuario
         platino = input("¿Es cliente Platinum? (1: Sí / 2: No): ") == "1"
         embarazada = input("¿Es mujer embarazada? (1: Sí / 2: No): ") == "1"
         discapacidad = input("¿Tiene discapacidad? (1: Sí / 2: No): ") == "1"
@@ -89,9 +93,10 @@ class PreguntaCategorias:
 
 # Función principal
 def banco():
+    # Función principal que gestiona la interacción con el usuario y opera sobre la cola de clientes
     cola = ColaClientes()
     while True:
-        print(" = " * 35)
+        print(" = " * 20)
         PreguntaCategorias.imprimir_menu()
         opcion = input("Seleccione una opción (1-5): ")
 
