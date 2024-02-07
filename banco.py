@@ -1,19 +1,12 @@
-# Definición de la clase Cliente
 class Cliente:
     def __init__(self, nombre, categorias):
-        # Inicializa un objeto Cliente con nombre y categorías
         self.nombre = nombre
         self.categorias = categorias
         self.siguiente = None
-
-# Definición de la clase NodoArbol
 class NodoArbol:
     def __init__(self, cliente):
-        # Inicializa un nodo del árbol con un cliente y lista de hijos
         self.cliente = cliente
         self.hijos = []
-
-# Definición de la clase ArbolColaPrioridades
 class ArbolColaPrioridades:
     def __init__(self):
         self.raiz = None
@@ -30,7 +23,6 @@ class ArbolColaPrioridades:
             nodo_actual.hijos.append(nuevo_nodo)
         else:
             for hijo in nodo_actual.hijos:
-                # Ajusta las reglas de prioridad según tus necesidades
                 if nuevo_nodo.cliente.categorias > hijo.cliente.categorias:
                     nodo_actual.hijos.insert(nodo_actual.hijos.index(hijo), nuevo_nodo)
                     return
@@ -44,8 +36,6 @@ class ArbolColaPrioridades:
             print(f"Cliente: {nodo_actual.cliente.nombre}, Categorías: {nodo_actual.cliente.categorias}")
             for hijo in nodo_actual.hijos:
                 self._imprimir_arbol(hijo)
-
-# Definición de la clase ColaClientes
 class ColaClientes:
     def __init__(self):
         self.arbol_prioridades = ArbolColaPrioridades()
@@ -60,7 +50,6 @@ class ColaClientes:
         self.arbol_prioridades.imprimir_arbol()
 
     def _obtener_nuevo_raiz(self, nodo_actual):
-        # Método auxiliar para obtener el nuevo nodo raíz después de eliminar
         if not nodo_actual.hijos:
             return None
         nuevo_raiz = max(nodo_actual.hijos, key=lambda x: x.cliente.categorias)
@@ -71,25 +60,22 @@ class ColaClientes:
         if not self.arbol_prioridades.raiz:
             print("La cola de clientes está vacía.")
             return
-        # Eliminar el cliente de la raíz
         cliente_atendido = self.arbol_prioridades.raiz.cliente
         print(f"Cliente atendido: {cliente_atendido.nombre}")
         self.arbol_prioridades.raiz = self._obtener_nuevo_raiz(self.arbol_prioridades.raiz)
-    # Resto de los métodos de la clase ColaClientes permanecen sin cambios
 
-# Clase para preguntar al usuario las categorías del cliente
 class PreguntaCategorias:
     @staticmethod
     def imprimir_menu():
-        print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
+        print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
         print("---- Sistema Bancario ----\n")
         print(" 1. Agregar cliente a la fila")
         print(" 2. Eliminar cliente atendido")
         print(" 3. Encontrar posición de un cliente")
         print(" 4. Imprimir lista de clientes")
         print(" 5. Salir\n")
-        print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
-    
+        print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
+
     @staticmethod
     def obtener_categorias():
         platino = input("¿Es cliente Platinum? (1: Sí / 2: No): ") == "1"
@@ -106,9 +92,7 @@ class PreguntaCategorias:
 
         return categorias
 
-# Función principal
 def banco():
-    # Función principal que gestiona la interacción con el usuario y opera sobre la cola de clientes
     cola = ColaClientes()
     while True:
         print(" = " * 20)
@@ -138,3 +122,4 @@ def banco():
 
 if __name__ == "__main__":
     banco()
+
