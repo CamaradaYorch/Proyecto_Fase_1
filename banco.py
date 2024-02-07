@@ -53,18 +53,35 @@ class ColaClientes:
     def agregar_cliente(self, nombre, categorias):
         nuevo_cliente = Cliente(nombre, categorias)
         self.arbol_prioridades.agregar_cliente(nuevo_cliente)
+        print(f"Cliente agregado: {nuevo_cliente.nombre}")
 
     def imprimir_lista_clientes(self):
         print("\n--- Lista de Clientes en Cola de Prioridades ---")
         self.arbol_prioridades.imprimir_arbol()
 
+    def _obtener_nuevo_raiz(self, nodo_actual):
+        # Método auxiliar para obtener el nuevo nodo raíz después de eliminar
+        if not nodo_actual.hijos:
+            return None
+        nuevo_raiz = max(nodo_actual.hijos, key=lambda x: x.cliente.categorias)
+        nodo_actual.hijos.remove(nuevo_raiz)
+        return nuevo_raiz
+
+    def eliminar_cliente(self):
+        if not self.arbol_prioridades.raiz:
+            print("La cola de clientes está vacía.")
+            return
+        # Eliminar el cliente de la raíz
+        cliente_atendido = self.arbol_prioridades.raiz.cliente
+        print(f"Cliente atendido: {cliente_atendido.nombre}")
+        self.arbol_prioridades.raiz = self._obtener_nuevo_raiz(self.arbol_prioridades.raiz)
     # Resto de los métodos de la clase ColaClientes permanecen sin cambios
 
 # Clase para preguntar al usuario las categorías del cliente
 class PreguntaCategorias:
     @staticmethod
     def imprimir_menu():
-        print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
+        print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
         print("---- Sistema Bancario ----\n")
         print(" 1. Agregar cliente a la fila")
         print(" 2. Eliminar cliente atendido")
@@ -72,11 +89,9 @@ class PreguntaCategorias:
         print(" 4. Imprimir lista de clientes")
         print(" 5. Salir\n")
         print("\n▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n")
-        print(" = " * 20)
-
+    
     @staticmethod
     def obtener_categorias():
-        # Obtiene las categorías del cliente mediante interacción con el usuario
         platino = input("¿Es cliente Platinum? (1: Sí / 2: No): ") == "1"
         embarazada = input("¿Es mujer embarazada? (1: Sí / 2: No): ") == "1"
         discapacidad = input("¿Tiene discapacidad? (1: Sí / 2: No): ") == "1"
@@ -102,12 +117,12 @@ def banco():
 
         if opcion == "5":
             print(" ▀" * 35)
-            print("\n░░░░░   Haz Salido del programa   ░░░░░\n")
+            print("\n░░░░░   Has salido del programa   ░░░░░\n")
             print(" ▀" * 35)
             break
 
         if opcion == "1":
-            nombre_cliente = input("Ingrese el nombre del cliente: ")
+            nombre_cliente = input("Ingrese el nombre del cliente: ").strip()
             categorias = PreguntaCategorias.obtener_categorias()
             cola.agregar_cliente(nombre_cliente, categorias)
 
@@ -115,7 +130,7 @@ def banco():
             cola.eliminar_cliente()
 
         elif opcion == "3":
-            nombre_cliente = input("Ingrese el nombre del cliente: ")
+            nombre_cliente = input("Ingrese el nombre del cliente: ").strip()
             cola.encontrar_posicion_cliente(nombre_cliente)
 
         elif opcion == "4":
